@@ -1,0 +1,114 @@
+Active Vessel Roll Dampening Device
+
+Jim McKeown
+20 August 2020
+
+Problem Description
+
+Stationary vessels of all sizes have a natural roll frequency that allows the vessel to cyclically roll significantly when even small amplitude waves of a similar frequency are present. Amplitude of the cyclical roll builds in amplitude because energy from the waves is added to the oscillating system in phase. This can be uncomfortable when anchored.
+
+Existing technology to alleviate this problem includes slosh tanks, wings, and gyroscopes. The disadvantage of these existing systems is high cost in terms of price and space usage. Passive devices include sea anchor type devices that are hung off the sides of the vessel to dampen roll. These devices are of limited effectiveness unless mounted at a significant distance from the center line of the vessel
+
+General Description of Device
+
+The device described here provides a more economical solution to active roll dampening than previous technology while not using any net additional space aboard the vessel. In the preferred embodiment, the device can also be configured as a tender when not being used as a stabilizer. The space occupied by this device when stored aboard the vessel is the space that would have been occupied by an ordinary tender. The device, when configured as a tender, can also be towed. Therefore, the net additional space used is zero.
+
+Power consumption is low enough (on the order of 1 Watt) to allow battery operation. No motors for pumps or compressors are used. All fluid is moved by gravity only. No significant load is placed on the vessel’s electrical system. A single accelerometer is the only required sensor. No fluid level sensors are required because of the unique valves used to directly control air flow and indirectly control water flow.
+
+The device consists generally of a rigid, vertical tube, closed at the top and open at the bottom. The tube is rigidly attached vertically amidship to the outer hull approximately half submerged. Two electrically triggered check valves control the water level in the tube and therefore control the anti-roll force applied to the hull. 
+
+A digital controller is interfaced to an accelerometer and periodically measures the instantaneous lateral g force at regular time intervals on the order of 100 samples per second. Lateral g-force is proportional to the sine of the roll angle of the vessel. At the maximum point in each roll half cycle, one of the electrically triggered check valves is triggered by the controller.
+
+On the high side of the cycle, the inlet valve is triggered. This allows air to enter the top of the stabilizer and allows the water inside the stabilizer to drop at least to the water line. Momentum of the falling water column can carry the water a distance below ambient level. The check valve mechanically closes at the lowest water level when 	air flow direction is reversed without any input from the controller. This automatically traps the maximum volume of air and minimum volume of water in the tube.
+
+On the low side of the cycle, the outlet valve is triggered. This allows air to exit the top of the stabilizer and allows outside water to enter the opening at the bottom of the stabilizer and rise at least to ambient level. Momentum of the rising water column can carry the water a distance above sea level. The check valve mechanically closes at the highest water level when air flow direction is reversed. This automatically traps the maximum volume of water and minimum volume of air in the tube.
+
+Multiple stabilizers may be used to increase effectiveness. In the preferred embodiment, one stabilizer is used on each side of the vessel to double the effectiveness and provide symmetrical anti-rolling force. Two tubes are required to be configured as a tender.
+
+<figure 1>
+
+Electrically Triggered Check Valve
+
+Figure 1 (above) shows an isometric view of the valve.
+
+Two check valves are located at the top of each stabilizer tube. One valve is oriented as shown above to allow air flow into the tube. The other is oriented in the opposite direction to allow air flow out of the tube.
+
+
+The check valves that control air flow and therefore control water level, act as ordinary check valves after being electrically triggered by a digital controller. Until triggered, the check valves remain shut regardless of external pressure.
+
+<figure 2>
+
+Figure 2 (right) shows a cross section of the valve. 
+
+The green section (1) supports the valve stem and spring (2). The red section (3) is the valve seat. The blue section (4) is the valve disk and stem. The yellow section and surrounding gray section (5) are the permanent magnet and core. The purple section and surrounding gray section (6) are the electromagnet coil and core. A gasket is shown in dark gray (7) between the valve stem support section and valve seat section. Another gasket also dark gray (8) is shown around the valve disk.
+
+In an unenergized state, the permanent magnet is attracted to the electromagnet core, holding the valve in the shut position. The valve remains shut regardless of forward or backward pressure. 
+
+When the valve is backward pressurized (higher pressure below the valve disk than above), the valve remains shut regardless of the state of the electromagnet. This is behavior is the same as an ordinary check valve.
+
+When the valve is forward pressurized (higher pressure above the valve disk than below) in the shut state and the electromagnet is unenergized, the permanent magnet and electromagnet attract. This prevents the valve disk from opening. This is not what a normal check valve does. A normal check valve opens as soon as forward pressure is applied.
+
+When the valve is forward pressurized in the shut state and then the electromagnet is momentarily energized with the same polarity as the permanent magnet, the permanent magnet and electromagnet repel. This allows the valve disk to open and remain open as long as the valve is forward pressurized, as with a normal check valve. The shutting action of the valve is entirely controlled mechanically by air flow and the spring. No further electrical control is needed to close the valve at the exact point in time when air flow drops to zero or reverses. The valve remains shut until forward pressure is applied and the valve is electrically triggered.
+
+Because of the action of this valve, there is no need to measure anything except instantaneous roll angle. A single accelerometer is the only sensor in the system.
+
+<figure 3>
+
+Digital controller
+
+Figure 3 (above) shows a block diagram of the digital controller. The system is controlled by an ordinary low power micro-controller such as Texas Instruments MSP430 or similar. The only input to the microcontroller is the binary PWM output from a single accelerometer such as Analog Devices ADXL213 or similar. There are two binary outputs for each stabilizer tube so there are four binary outputs in the preferred embodiment to trigger the check valves.
+
+The accelerometer is oriented along the lateral axis of the vessel to sense instantaneous roll angle.
+
+The algorithm would trigger the outlet valve at the lowest point in the roll cycle and trigger the inlet valve at the highest point in the roll cycle for each stabilizer tube.
+
+The only components with any significant power draw are the electromagnets in the check valves. Power rating of the electromagnets is typically on the order of 2 - 3 Watts. Four electromagnets with a conservative 10% duty cycle is an average load of about one Watt. Less than a typical LED anchor light.
+
+<figure 4>
+
+Detailed sequence of operation
+
+Figure 4 (above) shows the front view of a sailboat with stabilizers deployed. The initial water level inside the tubes is equal to ambient level. Both check valves of both tubes are closed so the air in the upper part of each tube is trapped and maintains a fixed water level inside the tubes when the boat begins to roll.
+
+<figure 5>
+
+Figure 5 (above) shows the boat in the beginning of cyclical rolling at its maximum roll angle to port from the neutral position.  Trapped air in the port tube has been forced below ambient level. Trapped water in the starboard tube has been lifted above ambient level. The weight of the water in the starboard tube and the buoyant force of the air in the port tube apply a torque to the hull that opposes roll.
+
+The controller determines that the boat is at maximum roll angle in the cycle from the periodic lateral g-force measurements that are being continuously taken. The check valves are about to be triggered by the controller.
+
+It is important to note that this set of figures shows the boat at very high angles of roll. The exaggerated angles shown are for clear illustration of the principal of operation. In actual operation, the device would remove energy from the oscillating system beginning when the roll angle is very small. Actual roll angle would remain small and never become as large as is shown in this set of figures.
+
+<figure 6>
+
+Figure 6 (above) shows the boat a moment after the check valves have been triggered. The port side exhaust valve has released the trapped air allowing the port side water level to equalize with the surrounding water level. At the same time, the starboard side intake valve has triggered allowing air to enter the top of the tube and releasing the trapped water. At the point when flow stops and begins to reverse, the check valves automatically close as would any normal mechanical check valve. This traps the air in the top of each tube and holds the water level constant relative to each tube. 
+
+It is important to note that the check valves are always opened by a trigger from the controller but always close automatically at the optimal time without any external control and without the need to sense the internal water level.
+
+<figure 7>
+
+Figure 7 (above) shows the boat rolling to starboard through the level position. A volume of trapped water in the port tube has been lifted above ambient level by the boat’s rolling motion. A volume of trapped air has been forced below the water line on the starboard side. The weight of the water in the port tube and the buoyant force of the air in the starboard tube apply torque to the hull that is opposite to the direction of roll. This torque removes energy from the oscillating system and reduces the magnitude of the cycle.
+
+<figure 8>
+
+Figure 8 (above) shows the boat at maximum roll angle to starboard. Roll angular velocity at this point in time is zero as the roll direction is about to reverse. Trapped water in the port tube has been lifted to maximum level above ambient. Trapped air in the starboard tube has been forced to the maximum level below ambient. The weight and buoyant forces have been increasingly opposing the direction of roll until this point in time. The controller determines that the boat is at maximum roll angle based on the periodic lateral g-force measurements that are continuously being taken. The exhaust valve on the starboard side and intake valve on the port side are about to be triggered by the controller.
+
+<figure 9>
+
+Figure 9 (above) shows the water levels a moment after the check valves have been triggered by the controller. Air rushes into the port tube, pulled by the falling water column. Air rushes out of the starboard tube pushed by the weight of the surrounding water. The check valves automatically close at this point in time when air flow through the valves drops to zero or begins to reverse direction. The water levels in the tubes approximately equal the ambient water level and remain trapped for the next half cycle. Minimum roll apposing torque is applied to the hull at this point in the cycle.
+
+<figure 10>
+
+Figure 10 (above) shows the boat rolling to port. Water in the starboard tube is being lifted above ambient level and air in the port tube is being forced below ambient level. The weight and buoyant force increasingly apply torque in the opposite direction to the roll, removing energy from the system and reducing the magnitude of roll.
+
+<figure 11>
+
+Figure 11 (above) shows the boat at maximum roll to port. Water has been lifted to maximum height above ambient on the starboard side and air has been pushed to maximum depth below ambient on the port side. Anti-roll force has continued to increase and is now at maximum. Check valves are about to be triggered by the controller. The cycle continues in Figure 6. 
+
+In practice, the magnitude of each cycle becomes smaller as energy is removed from the system until the roll angle becomes insufficient to be detected by the controller.
+
+<figure 12>
+
+Embodiment as Tender
+
+Figure 12 (above) shows the preferred embodiment configured as a tender. Two stabilizer tubes with removable covers over the bottom (right end in the figure) of the tubes form watertight pontoons. A platform is attached between the pontoons to form a tender. The tender may be stowed onboard in the space normally occupied by a tender, therefore not taking up any additional space. The tender may also be towed as is commonly done with any other tender. 
+
